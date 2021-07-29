@@ -79,7 +79,9 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
 	const id = req.params.id;
 
-	Listing.findByPk(id)
+	Listing.findByPk(id, {
+		include: Image
+	})
 		.then(data => {
 		res.send(data);
 		})
