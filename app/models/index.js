@@ -21,7 +21,11 @@ db.sequelize = sequelize;
 db.listings = require("./listing.model.js")(sequelize, Sequelize);
 db.images = require("./image.model.js")(sequelize, Sequelize);
 
-db.listings.hasMany(db.images, { foreignKey: 'listingId' });
+db.listings.hasMany(db.images, { 
+	foreignKey: 'listingId', 
+	onDelete: 'cascade', 
+	hooks: true
+});
 db.images.belongsTo(db.listings);
 
 module.exports = db;
