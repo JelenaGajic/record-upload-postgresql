@@ -52,8 +52,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Listing from the database.
 exports.findAll = (req, res) => {
-	const title = req.query.title;
-	var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+	const vin = req.query.vin;
+	var condition = vin ? { vin: { [Op.iLike]: `%${vin}%` } } : null;
 
 	Listing.findAll({ 
 		where: condition,
@@ -138,21 +138,21 @@ exports.delete = (req, res) => {
 };
 
 // Delete all Vehicles from the database.
-// exports.deleteAll = (req, res) => {
-// 	Listing.destroy({
-// 		where: {},
-// 		truncate: false
-// 	})
-// 		.then(nums => {
-// 		res.send({ message: `${nums} Vehicles were deleted successfully!` });
-// 		})
-// 		.catch(err => {
-// 		res.status(500).send({
-// 			message:
-// 			err.message || "Some error occurred while removing all Vehicles."
-// 		});
-// 		});
-// };
+exports.deleteAll = (req, res) => {
+	Listing.destroy({
+		where: {},
+		include: Image
+	})
+		.then(nums => {
+		res.send({ message: `${nums} Vehicles were deleted successfully!` });
+		})
+		.catch(err => {
+		res.status(500).send({
+			message:
+			err.message || "Some error occurred while removing all Vehicles."
+		});
+		});
+};
 
 // Find all published Vehicles
 // exports.findAllPublished = (req, res) => {

@@ -13,7 +13,15 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.INTEGER,
 			primaryKey: true
 		}
-	});
+	},
+	{
+      indexes:[
+       {
+         unique: true,
+         fields:['vin']
+       }
+      ]
+    });
 
 	return Listing;
 };
